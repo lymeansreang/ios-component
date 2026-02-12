@@ -17,6 +17,7 @@ export const componentItems: ComponentItem[] = [
   { name: "Carousel", id: "carousel" },
   { name: "Navigation Bar", id: "navbar" },
   { name: "Table View", id: "table-view" },
+  { name: "Reaction", id: "reaction" },
   // { name: "Slider", id: "slider" },
   // { name: "Alert", id: "alert" },
   { name: "Card", id: "card" },

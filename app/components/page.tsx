@@ -19,6 +19,7 @@ import BottomSheet from "@/components/ui/bottom-sheet/BottomSheet";
 import Carousel from "@/components/ui/carousel/Carousel";
 import TableView from "@/components/ui/tableview/TableView";
 import Chart from "@/components/ui/chart/Chart";
+import Reaction from "@/components/ui/reaction/Reaction";
 import UIColor from "@/components/ui/extension/UIColor";
 import BasicNavigation from "@/components/ui/extension/BasicNavigation";
 
@@ -44,6 +45,7 @@ const componentViews: Record<string, ReactNode> = {
   carousel: <Carousel />,
   navbar: <Navbar />,
   "table-view": <TableView />,
+  reaction: <Reaction />,
   // slider: <Slider />,
   // alert: <Alert />,
   card: <Card />,
