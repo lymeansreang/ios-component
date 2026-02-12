@@ -14,6 +14,7 @@ export const componentItems: ComponentItem[] = [
   { name: "Text Field", id: "text-field" },
   { name: "Tab Bar", id: "tab-bar" },
   { name: "Spinner", id: "spinner" },
+  { name: "Skeleton", id: "skeleton" },
   { name: "Carousel", id: "carousel" },
   { name: "Navigation Bar", id: "navbar" },
   { name: "Table View", id: "table-view" },
