@@ -2,7 +2,10 @@
 
 import { useMemo, useState, type ReactNode } from "react";
 import { Fraunces, Space_Grotesk } from "next/font/google";
-import Sidebar, { componentItems } from "@/components/ui/Sidebar";
+import Sidebar, {
+  componentItems,
+  extensionItems,
+} from "@/components/ui/Sidebar";
 import Button from "@/components/ui/button/Button";
 import Toggle from "@/components/ui/toggle/Toggle";
 import TextField from "@/components/ui/textfield/TextField";
@@ -15,6 +18,8 @@ import BottomSheet from "@/components/ui/bottom-sheet/BottomSheet";
 import Carousel from "@/components/ui/carousel/Carousel";
 import TableView from "@/components/ui/tableview/TableView";
 import Chart from "@/components/ui/chart/Chart";
+import UIColor from "@/components/ui/extension/UIColor";
+import BasicNavigation from "@/components/ui/extension/BasicNavigation";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -41,13 +46,19 @@ const componentViews: Record<string, ReactNode> = {
   // alert: <Alert />,
   card: <Card />,
   chart: <Chart />,
+  "ui-color": <UIColor />,
+  "basic-navigation": <BasicNavigation />,
 };
 
 export default function ComponentsPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const allItems = useMemo(
+    () => [...componentItems, ...extensionItems],
+    []
+  );
   const activeItem = useMemo(
-    () => componentItems.find((item) => item.id === activeId) ?? null,
-    [activeId]
+    () => allItems.find((item) => item.id === activeId) ?? null,
+    [activeId, allItems]
   );
 
   return (
@@ -118,7 +129,7 @@ export default function ComponentsPage() {
                         Start here
                       </button>
                       <span className="inline-flex items-center justify-center rounded-2xl border border-neutral-300/80 dark:border-neutral-700 px-5 py-3 text-xs font-semibold text-neutral-700 dark:text-neutral-200">
-                        {componentItems.length} live pieces
+                        {allItems.length} live pieces
                       </span>
                     </div>
                   </div>
@@ -150,6 +161,43 @@ export default function ComponentsPage() {
                     </div>
                   </button>
                 ))}
+              </section>
+
+              <section className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
+                    Extension
+                  </p>
+                  <span className="text-xs text-neutral-500">
+                    Swift helpers
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {extensionItems.map((item, index) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setActiveId(item.id)}
+                      className="group relative overflow-hidden rounded-[26px] border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/70 p-5 text-left shadow-[0_20px_50px_-42px_rgba(15,23,42,0.5)] transition hover:-translate-y-1 hover:border-neutral-300 dark:hover:border-neutral-700"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/5 via-transparent to-sky-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      <div className="relative space-y-3">
+                        <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                          {String(index + 1).padStart(2, "0")}
+                        </p>
+                        <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
+                          {item.name}
+                        </h3>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                          Swift extension helpers and usage notes.
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <span className="h-2 w-10 rounded-full bg-neutral-900 dark:bg-white" />
+                          <span className="h-2 w-6 rounded-full bg-neutral-200 dark:bg-neutral-700" />
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </section>
             </div>
           )}

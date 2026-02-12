@@ -22,6 +22,11 @@ export const componentItems: ComponentItem[] = [
   { name: "Chart", id: "chart" },
 ];
 
+export const extensionItems: ComponentItem[] = [
+  { name: "UIColor", id: "ui-color" },
+  { name: "Basic Navigation", id: "basic-navigation" },
+];
+
 interface SidebarProps {
   activeId: string | null;
   onSelect: (id: string) => void;
@@ -62,23 +67,54 @@ export default function Sidebar({ activeId, onSelect }: SidebarProps) {
             ✕
           </button>
         </div>
-        <nav className="flex flex-col gap-1">
-          {componentItems.map((item) => {
-            const isActive = activeId === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleSelect(item.id)}
-                className={`px-3 py-2 rounded-lg text-sm text-left transition-colors ${
-                  isActive
-                    ? "bg-blue-500 text-white"
-                    : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800"
-                }`}
-              >
-                {item.name}
-              </button>
-            );
-          })}
+        <nav className="space-y-6">
+          <div className="space-y-1">
+            {componentItems.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleSelect(item.id)}
+                  className={`relative w-full px-3 py-2 rounded-lg text-sm text-left transition-all duration-300 ${
+                    isActive
+                      ? "bg-gradient-to-r from-blue-500 to-sky-500 text-white shadow-sm animate-[sidebar-select_0.35s_ease-out] motion-reduce:animate-none"
+                      : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200/80 dark:hover:bg-neutral-800"
+                  }`}
+                >
+                  {isActive && (
+                    <span className="absolute left-1.5 top-1/2 h-3 w-1.5 -translate-y-1/2 rounded-full bg-white/80" />
+                  )}
+                  {item.name}
+                </button>
+              );
+            })}
+          </div>
+          <div className="space-y-2">
+            <h2 className="px-3 text-sm font-semibold uppercase tracking-wider text-neutral-500">
+              Extension
+            </h2>
+            <div className="space-y-1">
+              {extensionItems.map((item) => {
+                const isActive = activeId === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleSelect(item.id)}
+                    className={`relative w-full px-3 py-2 rounded-lg text-sm text-left transition-all duration-300 ${
+                      isActive
+                        ? "bg-gradient-to-r from-blue-500 to-sky-500 text-white shadow-sm animate-[sidebar-select_0.35s_ease-out] motion-reduce:animate-none"
+                        : "text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200/80 dark:hover:bg-neutral-800"
+                    }`}
+                  >
+                    {isActive && (
+                      <span className="absolute left-1.5 top-1/2 h-3 w-1.5 -translate-y-1/2 rounded-full bg-white/80" />
+                    )}
+                    {item.name}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </nav>
       </aside>
     </>

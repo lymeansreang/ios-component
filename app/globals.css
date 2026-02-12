@@ -151,3 +151,14 @@
     animation-range: entry 15% cover 35%;
   }
 }
+
+@keyframes sidebar-select {
+  from {
+    transform: translateY(6px) scale(0.98);
+    opacity: 0.6;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
