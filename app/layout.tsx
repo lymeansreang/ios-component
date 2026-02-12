@@ -4,6 +4,8 @@ import Link from "next/link";
 import ThemeProvider from "@/components/theme-provider";
 import ThemeTogglerClient from "@/components/theme-toggler-client";
 import { BrandLogo } from "@/components/ui/BrandLogo";
+import { SidebarStateProvider } from "@/components/ui/sidebar-state";
+import SidebarToggle from "@/components/ui/SidebarToggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,30 +34,35 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <header className="sticky top-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-sm">
-            <nav className="max-w-7xl mx-auto flex items-center gap-6 px-6 h-14">
-              <Link
-                href="/homepage"
-                className="flex items-center gap-2 font-semibold text-lg tracking-tight"
-              >
-                <BrandLogo
-                  size={24}
-                  className="text-neutral-900 dark:text-white"
-                />
-                iOS Components
-              </Link>
-              <div className="flex items-center gap-3 ml-auto">
-                <Link
-                  href="/components"
-                  className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-                >
-                  Components
-                </Link>
-                <ThemeTogglerClient />
-              </div>
-            </nav>
-          </header>
-          {children}
+          <SidebarStateProvider>
+            <header className="sticky top-0 z-50 border-b border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-sm">
+              <nav className="max-w-7xl mx-auto flex items-center gap-6 px-6 h-14">
+                <div className="flex items-center gap-2">
+                  <SidebarToggle />
+                  <Link
+                    href="/homepage"
+                    className="flex items-center gap-2 font-semibold text-lg tracking-tight"
+                  >
+                    <BrandLogo
+                      size={24}
+                      className="text-neutral-900 dark:text-white"
+                    />
+                    iOS Components
+                  </Link>
+                </div>
+                <div className="flex items-center gap-3 ml-auto">
+                  <Link
+                    href="/components"
+                    className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                  >
+                    Components
+                  </Link>
+                  <ThemeTogglerClient />
+                </div>
+              </nav>
+            </header>
+            {children}
+          </SidebarStateProvider>
         </ThemeProvider>
       </body>
     </html>
