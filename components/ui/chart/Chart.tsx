@@ -883,17 +883,18 @@ class PieChartView: UIView {
 // MARK: - Usage
 // let pieChart = PieChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 400))
 // view.addSubview(pieChart)
-// pieChart.animateAppearance()`;
+// override func viewDidAppear(_ animated: Bool) {
+//     super.viewDidAppear(animated)
+//     pieChart.animateAppearance()
+// }`;
 
 const lineGraphUIKit = `import UIKit
 
-// MARK: - Data Model
 struct ActivityPoint {
     let day: String
     let minutes: Int
 }
 
-// MARK: - Line Graph View
 class LineGraphView: UIView {
 
     private let data: [ActivityPoint] = [
@@ -1022,7 +1023,6 @@ class LineGraphView: UIView {
             )
         }
 
-        // Line path
         let linePath = UIBezierPath()
         linePath.move(to: points[0])
         for p in points.dropFirst() { linePath.addLine(to: p) }
@@ -1035,7 +1035,6 @@ class LineGraphView: UIView {
         lineLayer.lineJoin = .round
         graphContainer.layer.addSublayer(lineLayer)
 
-        // Gradient area
         let areaPath = UIBezierPath(cgPath: linePath.cgPath)
         areaPath.addLine(to: CGPoint(x: points.last!.x, y: paddingY + graphH))
         areaPath.addLine(to: CGPoint(x: points.first!.x, y: paddingY + graphH))
@@ -1050,7 +1049,6 @@ class LineGraphView: UIView {
         gradientLayer.mask = gradientMask
         graphContainer.layer.insertSublayer(gradientLayer, below: lineLayer)
 
-        // Dots
         for p in points {
             let dot = CAShapeLayer()
             dot.path = UIBezierPath(ovalIn: CGRect(x: p.x - 3, y: p.y - 3, width: 6, height: 6)).cgPath
@@ -1061,7 +1059,6 @@ class LineGraphView: UIView {
             dotLayers.append(dot)
         }
 
-        // X-axis labels
         for (i, d) in data.enumerated() {
             let label = UILabel()
             label.text = d.day
@@ -1086,18 +1083,19 @@ class LineGraphView: UIView {
 // MARK: - Usage
 // let graph = LineGraphView(frame: CGRect(x: 0, y: 0, width: 320, height: 280))
 // view.addSubview(graph)
-// graph.animateLine()`;
+// override func viewDidAppear(_ animated: Bool) {
+//         super.viewDidAppear(animated)
+//          graph.animateLine()
+//     }`;
 
 const donutChartUIKit = `import UIKit
 
-// MARK: - Data Model
 struct RingData {
     let label: String
     let percentage: CGFloat
     let color: UIColor
 }
 
-// MARK: - Single Ring Layer
 class RingLayer: CAShapeLayer {
 
     private let trackLayer = CAShapeLayer()
@@ -1111,6 +1109,8 @@ class RingLayer: CAShapeLayer {
         self.ringWidth = lineWidth
         self.percentage = percentage
         super.init()
+
+        contentsScale = UIScreen.main.scale
 
         let circularPath = UIBezierPath(
             arcCenter: center,
@@ -1126,6 +1126,7 @@ class RingLayer: CAShapeLayer {
         trackLayer.strokeColor = color.withAlphaComponent(0.2).cgColor
         trackLayer.lineWidth = lineWidth
         trackLayer.lineCap = .round
+        trackLayer.contentsScale = UIScreen.main.scale
         addSublayer(trackLayer)
 
         // Foreground progress
@@ -1134,16 +1135,21 @@ class RingLayer: CAShapeLayer {
         progressLayer.strokeColor = color.cgColor
         progressLayer.lineWidth = lineWidth
         progressLayer.lineCap = .round
-        progressLayer.strokeEnd = 0
+        progressLayer.strokeEnd = 0 // start hidden; animation will reveal
+        progressLayer.contentsScale = UIScreen.main.scale
         addSublayer(progressLayer)
     }
 
     required init?(coder: NSCoder) { fatalError() }
 
     func animateProgress(delay: CFTimeInterval = 0) {
+        // Set the model layer to the final value so state persists after animation
+        let final = max(0, min(1, percentage / 100))
+        progressLayer.strokeEnd = final
+
         let anim = CABasicAnimation(keyPath: "strokeEnd")
         anim.fromValue = 0
-        anim.toValue = percentage / 100
+        anim.toValue = final
         anim.duration = 1.2
         anim.beginTime = CACurrentMediaTime() + delay
         anim.timingFunction = CAMediaTimingFunction(name: .easeOut)
@@ -1153,19 +1159,22 @@ class RingLayer: CAShapeLayer {
     }
 }
 
-// MARK: - Activity Rings View
 class ActivityRingsView: UIView {
 
     private let rings: [RingData] = [
         RingData(label: "Move", percentage: 72, color: .systemRed),
         RingData(label: "Exercise", percentage: 58, color: .systemGreen),
-        RingData(label: "Stand", percentage: 90, color: .systemCyan),
+        RingData(label: "Stand", percentage: 90, color: .cyan),
     ]
 
     private var ringLayers: [RingLayer] = []
     private let legendStack = UIStackView()
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
+
+    private var didBuildLayers = false
+    private var lastLayoutBounds: CGRect = .zero
+    private var didAutoAnimate = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -1220,7 +1229,7 @@ class ActivityRingsView: UIView {
             row.addArrangedSubview(label)
 
             let value = UILabel()
-            value.text = "\\(Int(ring.percentage))%"
+            value.text = "\(Int(ring.percentage))%"
             value.font = .boldSystemFont(ofSize: 20)
             value.textColor = ring.color
 
@@ -1243,16 +1252,42 @@ class ActivityRingsView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        drawRings()
+
+        guard bounds.width > 0, bounds.height > 0 else { return }
+        if !didBuildLayers || bounds.size != lastLayoutBounds.size {
+            buildRings()
+            lastLayoutBounds = bounds
+            didBuildLayers = true
+
+            if !didAutoAnimate {
+                didAutoAnimate = true
+                animateRings()
+            }
+        }
     }
 
-    private func drawRings() {
+    private func buildRings() {
+
         ringLayers.forEach { $0.removeFromSuperlayer() }
         ringLayers.removeAll()
 
-        let center = CGPoint(x: 100, y: bounds.midY + 10)
-        let radii: [CGFloat] = [72, 52, 32]
-        let lineWidth: CGFloat = 16
+        let availableHeight = bounds.height
+        let availableWidth = bounds.width
+
+        let centerX = min(availableWidth * 0.32, availableWidth * 0.5)
+        let centerY = bounds.midY + 10
+        let center = CGPoint(x: centerX, y: centerY)
+
+        let maxRadius = min(centerX - 16, availableHeight * 0.45)
+        let ringCount = rings.count
+        let lineWidth: CGFloat = max(12, maxRadius / CGFloat(max(ringCount * 4, 8)))
+        let gap: CGFloat = lineWidth * 0.6
+
+        var radii: [CGFloat] = []
+        for i in 0..<ringCount {
+            let radius = maxRadius - CGFloat(i) * (lineWidth + gap)
+            radii.append(radius)
+        }
 
         for (i, ring) in rings.enumerated() {
             let ringLayer = RingLayer(
@@ -1277,7 +1312,11 @@ class ActivityRingsView: UIView {
 // MARK: - Usage
 // let ringsView = ActivityRingsView(frame: CGRect(x: 0, y: 0, width: 320, height: 280))
 // view.addSubview(ringsView)
-// ringsView.animateRings()`;
+//override func viewDidAppear(_ animated: Bool) {
+//    super.viewDidAppear(animated)
+//    // If you want to manually trigger (the view also auto-starts on first layout)
+//    ringsView.animateRings()
+//}`;
 
 // ─── Default Export ─────────────────────────────────────────────────
 
