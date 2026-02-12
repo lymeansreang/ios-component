@@ -13,6 +13,7 @@ import TabBar from "@/components/ui/tabbar/TabBar";
 import Slider from "@/components/ui/slider/Slider";
 import Alert from "@/components/ui/alert/Alert";
 import Card from "@/components/ui/card/Card";
+import Spinner from "@/components/ui/spinner/Spinner";
 import Navbar from "@/components/ui/navbar/Navbar";
 import BottomSheet from "@/components/ui/bottom-sheet/BottomSheet";
 import Carousel from "@/components/ui/carousel/Carousel";
@@ -39,6 +40,7 @@ const componentViews: Record<string, ReactNode> = {
   toggle: <Toggle />,
   "text-field": <TextField />,
   "tab-bar": <TabBar />,
+  spinner: <Spinner />,
   carousel: <Carousel />,
   navbar: <Navbar />,
   "table-view": <TableView />,
