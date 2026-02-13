@@ -34,7 +34,12 @@ import UIFontExtension from "@/components/ui/extension/UIFont";
 import UIViewExtension from "@/components/ui/extension/UIView";
 import CodableExtension from "@/components/ui/extension/Codable";
 import BasicNavigation from "@/components/ui/extension/BasicNavigation";
+import LocalizeExtension from "@/components/ui/extension/Localize";
 import SegmentControl from "@/components/ui/segment-control/SegmentControl";
+import Toast from "@/components/ui/toast/Toast";
+import SocialModernUIKit from "@/components/ui/social-modern-uikit/SocialModernUIKit";
+import EcommerceUIKit from "@/components/ui/ecommerce-uikit/EcommerceUIKit";
+import VisualDecorationUIKit from "@/components/ui/visual-decoration-uikit/VisualDecorationUIKit";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -72,11 +77,16 @@ const componentViews: Record<string, ReactNode> = {
   rating: <Rating />,
   "scan-qr": <ScanQR />,
   "segment-control": <SegmentControl />,
+  toast: <Toast />,
+  "social-modern": <SocialModernUIKit />,
+  "ecommerce-uikit": <EcommerceUIKit />,
+  "visual-decoration-uikit": <VisualDecorationUIKit />,
   "ui-color": <UIColor />,
   "ui-font": <UIFontExtension />,
   "ui-view": <UIViewExtension />,
   "codable-helpers": <CodableExtension />,
   "basic-navigation": <BasicNavigation />,
+  localize: <LocalizeExtension />,
 };
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;

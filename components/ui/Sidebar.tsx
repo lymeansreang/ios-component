@@ -31,6 +31,10 @@ export const componentItems: ComponentItem[] = [
   { name: "Rating", id: "rating" },
   { name: "Scan QR", id: "scan-qr" },
   { name: "Segment Control", id: "segment-control" },
+  { name: "Toast", id: "toast" },
+  { name: "Social Modern", id: "social-modern" },
+  { name: "Ecommerce", id: "ecommerce-uikit" },
+  { name: "Visual Decoration", id: "visual-decoration-uikit" },
 ];
 
 export const extensionItems: ComponentItem[] = [
@@ -39,6 +43,7 @@ export const extensionItems: ComponentItem[] = [
   { name: "UIView", id: "ui-view" },
   { name: "Codable Helpers", id: "codable-helpers" },
   { name: "Basic Navigation", id: "basic-navigation" },
+  { name: "Localize", id: "localize" },
 ];
 
 interface SidebarProps {
@@ -54,7 +59,7 @@ export default function Sidebar({ activeId, onSelect }: SidebarProps) {
     close();
   };
 
-  const renderNavItem = (item: ComponentItem, section: "C" | "E") => {
+  const renderNavItem = (item: ComponentItem) => {
     const isActive = activeId === item.id;
 
     return (
@@ -68,30 +73,14 @@ export default function Sidebar({ activeId, onSelect }: SidebarProps) {
         }`}
       >
         <span
-          className={`pointer-events-none absolute inset-y-1 left-1 w-1 rounded-full transition-opacity duration-300 ${
-            isActive
-              ? "opacity-100 bg-gradient-to-b from-sky-400 to-cyan-500"
-              : "opacity-0 group-hover:opacity-100 bg-gradient-to-b from-sky-300/70 to-cyan-400/70"
-          }`}
-        />
-        <span
           className={`pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full blur-xl transition-opacity duration-300 ${
             isActive
               ? "opacity-100 bg-sky-400/25 dark:bg-sky-500/20"
               : "opacity-0 group-hover:opacity-100 bg-sky-300/20 dark:bg-sky-700/20"
           }`}
         />
-        <span className="relative flex items-center justify-between gap-3 pl-2">
+        <span className="relative flex items-center gap-3">
           <span className="font-medium tracking-[0.01em]">{item.name}</span>
-          <span
-            className={`inline-flex min-w-9 items-center justify-center rounded-full border px-2 py-0.5 text-[10px] font-semibold tracking-[0.14em] transition-colors ${
-              isActive
-                ? "border-sky-300/80 dark:border-sky-500/60 bg-white/65 dark:bg-sky-950/60 text-sky-700 dark:text-sky-200"
-                : "border-neutral-200/90 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900 text-neutral-500 dark:text-neutral-400 group-hover:border-sky-200 dark:group-hover:border-sky-700 group-hover:text-sky-700 dark:group-hover:text-sky-300"
-            }`}
-          >
-            {section}
-          </span>
         </span>
       </button>
     );
@@ -127,14 +116,14 @@ export default function Sidebar({ activeId, onSelect }: SidebarProps) {
         </div>
         <nav className="relative space-y-6">
           <div className="space-y-1">
-            {componentItems.map((item) => renderNavItem(item, "C"))}
+            {componentItems.map((item) => renderNavItem(item))}
           </div>
           <div className="space-y-2">
             <h2 className="px-3 text-sm font-semibold uppercase tracking-[0.24em] text-neutral-500">
               Extension
             </h2>
             <div className="space-y-1">
-              {extensionItems.map((item) => renderNavItem(item, "E"))}
+              {extensionItems.map((item) => renderNavItem(item))}
             </div>
           </div>
         </nav>
