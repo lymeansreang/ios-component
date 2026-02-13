@@ -12,6 +12,8 @@ export const componentItems: ComponentItem[] = [
   { name: "Bottom Sheet", id: "bottom-sheet" },
   { name: "Toggle", id: "toggle" },
   { name: "Text Field", id: "text-field" },
+  { name: "Media", id: "media" },
+  { name: "Premium", id: "premium" },
   { name: "Tab Bar", id: "tab-bar" },
   { name: "Spinner", id: "spinner" },
   { name: "Skeleton", id: "skeleton" },
@@ -23,10 +25,17 @@ export const componentItems: ComponentItem[] = [
   // { name: "Alert", id: "alert" },
   { name: "Card", id: "card" },
   { name: "Chart", id: "chart" },
+  { name: "Dropdown", id: "dropdown" },
+  { name: "Radio Button", id: "radio-button" },
+  { name: "Message Alert", id: "message-alert" },
+  { name: "Rating", id: "rating" },
+  { name: "Scan QR", id: "scan-qr" },
 ];
 
 export const extensionItems: ComponentItem[] = [
   { name: "UIColor", id: "ui-color" },
+  { name: "UIFont", id: "ui-font" },
+  { name: "UIView", id: "ui-view" },
   { name: "Basic Navigation", id: "basic-navigation" },
 ];
 

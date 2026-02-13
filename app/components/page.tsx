@@ -9,6 +9,8 @@ import Sidebar, {
 import Button from "@/components/ui/button/Button";
 import Toggle from "@/components/ui/toggle/Toggle";
 import TextField from "@/components/ui/textfield/TextField";
+import Media from "@/components/ui/media/Media";
+import Premium from "@/components/ui/premium/Premium";
 import TabBar from "@/components/ui/tabbar/TabBar";
 import Slider from "@/components/ui/slider/Slider";
 import Alert from "@/components/ui/alert/Alert";
@@ -21,7 +23,14 @@ import Carousel from "@/components/ui/carousel/Carousel";
 import TableView from "@/components/ui/tableview/TableView";
 import Chart from "@/components/ui/chart/Chart";
 import Reaction from "@/components/ui/reaction/Reaction";
+import Dropdown from "@/components/ui/dropdown/Dropdown";
+import RadioButton from "@/components/ui/radio-button/RadioButton";
+import MessageAlert from "@/components/ui/message-alert/MessageAlert";
+import Rating from "@/components/ui/rating/Rating";
+import ScanQR from "@/components/ui/scan-qr/ScanQR";
 import UIColor from "@/components/ui/extension/UIColor";
+import UIFontExtension from "@/components/ui/extension/UIFont";
+import UIViewExtension from "@/components/ui/extension/UIView";
 import BasicNavigation from "@/components/ui/extension/BasicNavigation";
 
 const display = Fraunces({
@@ -41,6 +50,8 @@ const componentViews: Record<string, ReactNode> = {
   "bottom-sheet": <BottomSheet />,
   toggle: <Toggle />,
   "text-field": <TextField />,
+  media: <Media />,
+  premium: <Premium />,
   "tab-bar": <TabBar />,
   spinner: <Spinner />,
   skeleton: <Skeleton />,
@@ -52,7 +63,14 @@ const componentViews: Record<string, ReactNode> = {
   // alert: <Alert />,
   card: <Card />,
   chart: <Chart />,
+  dropdown: <Dropdown />,
+  "radio-button": <RadioButton />,
+  "message-alert": <MessageAlert />,
+  rating: <Rating />,
+  "scan-qr": <ScanQR />,
   "ui-color": <UIColor />,
+  "ui-font": <UIFontExtension />,
+  "ui-view": <UIViewExtension />,
   "basic-navigation": <BasicNavigation />,
 };
 

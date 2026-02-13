@@ -227,6 +227,16 @@
   }
 }
 
+@keyframes scan-line {
+  0%,
+  100% {
+    top: 0.5rem;
+  }
+  50% {
+    top: calc(100% - 0.5rem);
+  }
+}
+
 @keyframes skeleton-shimmer {
   0% {
     opacity: 0.78;
