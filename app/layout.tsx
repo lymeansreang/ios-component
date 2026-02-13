@@ -20,7 +20,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "iOS Components",
-  description: "A collection of iOS-style UI components",
+  description:
+    "A curated collection of iOS-style UI components and Swift extensions — built for clarity, motion, and touch-first design.",
+  metadataBase: new URL("https://ios-components.vercel.app"),
+  openGraph: {
+    title: "iOS Components",
+    description:
+      "A curated collection of iOS-style UI components and Swift extensions — built for clarity, motion, and touch-first design.",
+    siteName: "iOS Components",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "iOS Components",
+    description:
+      "A curated collection of iOS-style UI components and Swift extensions — built for clarity, motion, and touch-first design.",
+  },
 };
 
 export default function RootLayout({
