@@ -127,18 +127,18 @@ const floatingTabs: TabItem[] = [
       </svg>
     ),
   },
-  {
-    id: "profile",
-    label: "Profile",
-    activeColor: "text-neutral-900",
-    inactiveColor: "text-neutral-400",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="7" r="4" />
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      </svg>
-    ),
-  },
+  // {
+  //   id: "profile",
+  //   label: "Profile",
+  //   activeColor: "text-neutral-900",
+  //   inactiveColor: "text-neutral-400",
+  //   icon: (
+  //     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  //       <circle cx="12" cy="7" r="4" />
+  //       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+  //     </svg>
+  //   ),
+  // },
 ];
 
 const curveTabs: TabItem[] = [
@@ -1411,25 +1411,22 @@ export default function TabBar() {
             <div className="w-full max-w-xl">
               <div className="relative grid grid-cols-5 gap-2 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-2">
                 <span
-                  className="absolute top-2 bottom-2 w-[calc((100%-0.5rem*4)/5)] rounded-xl bg-blue-500 transition-transform duration-200"
+                  className="absolute left-2 top-2 bottom-2 w-[calc((100%-1rem-0.5rem*4)/5)] rounded-xl bg-neutral-900 dark:bg-neutral-100 transition-transform duration-200"
                   style={{
                     transform: `translateX(calc(${simpleTabs.findIndex((t) => t.id === activeSimple)} * (100% + 0.5rem)))`,
                   }}
                 />
                 {simpleTabs.map((tab) => {
                   const isActive = activeSimple === tab.id;
-                  const activeText = tab.activeColor ?? "text-white";
-                  const inactiveText =
-                    tab.inactiveColor ??
-                    "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300";
-
                   return (
                     <button
                       key={tab.id}
                       type="button"
                       onClick={() => setActiveSimple(tab.id)}
                       className={`relative z-10 flex flex-col items-center justify-center gap-1 rounded-xl py-2 text-xs font-medium transition-transform duration-150 ${
-                        isActive ? `${activeText} scale-[1.03]` : `${inactiveText} hover:scale-[1.02]`
+                        isActive
+                          ? "text-white dark:text-neutral-900 scale-[1.03]"
+                          : "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300 hover:scale-[1.02]"
                       }`}
                     >
                       {tab.icon}
@@ -1552,7 +1549,7 @@ export default function TabBar() {
             <div className="w-full max-w-xl">
               <div className="relative grid grid-cols-5 gap-2 rounded-2xl border border-white/30 bg-white/20 dark:bg-white/5 backdrop-blur-xl shadow-[0_12px_30px_rgba(0,0,0,0.18)] p-2">
                 <span
-                  className="absolute top-2 bottom-2 w-[calc((100%-0.5rem*4)/5)] rounded-xl bg-white/70 transition-transform duration-200"
+                  className="absolute left-2 top-2 bottom-2 w-[calc((100%-1rem-0.5rem*4)/5)] rounded-xl bg-white/70 transition-transform duration-200"
                   style={{
                     transform: `translateX(calc(${simpleTabs.findIndex((t) => t.id === activeGlass)} * (100% + 0.5rem)))`,
                   }}

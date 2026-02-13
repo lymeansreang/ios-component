@@ -316,6 +316,25 @@ export default function ComponentsPage() {
             )}
           </AnimatePresence>
         </div>
+
+        <footer className="mt-16 border-t border-neutral-200/80 dark:border-neutral-800 pt-8 pb-10">
+          <div className="flex flex-col items-center gap-4 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-neutral-400 dark:text-neutral-500">
+              iOS Components
+            </p>
+            <p className="max-w-md text-sm text-neutral-500 dark:text-neutral-400">
+              A curated collection of iOS-style UI components and Swift
+              extensions — built for clarity, motion, and touch-first design.
+            </p>
+            <div className="flex items-center gap-6 text-xs text-neutral-400 dark:text-neutral-500">
+              <span>{allItems.length} components</span>
+              <span className="h-3 w-px bg-neutral-300 dark:bg-neutral-700" />
+              <span>UIKit · Swift</span>
+              <span className="h-3 w-px bg-neutral-300 dark:bg-neutral-700" />
+              <span>&copy; {new Date().getFullYear()}</span>
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
   );
