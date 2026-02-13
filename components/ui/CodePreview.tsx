@@ -52,7 +52,29 @@ export default function CodePreview({
       </div>
 
       <div className="p-6 flex items-center justify-center bg-white dark:bg-neutral-950">
-        {preview}
+        <div className="relative mx-auto h-[500px] w-[370px] max-w-full rounded-[48px] border-[3px] border-neutral-800 dark:border-neutral-600 bg-neutral-900 p-[3px] shadow-[0_28px_70px_-28px_rgba(0,0,0,0.45)]">
+          <div className="relative h-full overflow-hidden rounded-[44px] bg-white dark:bg-neutral-950 flex flex-col">
+            <div className="absolute top-0 inset-x-0 flex justify-center pt-3 z-20 pointer-events-none">
+              <div className="h-[24px] w-[96px] rounded-full bg-black" />
+            </div>
+            <div className="relative z-10 flex items-center justify-between px-8 pt-4 pb-1">
+              <span className="text-[11px] font-semibold text-neutral-900 dark:text-white">
+                9:41
+              </span>
+              <span className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                LTE
+              </span>
+            </div>
+            <div className="flex-1 overflow-auto px-4 pt-4 pb-3">
+              <div className="flex min-h-full w-full items-center justify-center">
+                {preview}
+              </div>
+            </div>
+            <div className="flex justify-center pb-2.5 pt-1">
+              <div className="h-[4px] w-[110px] rounded-full bg-neutral-300 dark:bg-neutral-600" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="border-t border-neutral-200 dark:border-neutral-800">

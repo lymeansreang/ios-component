@@ -30,12 +30,14 @@ export const componentItems: ComponentItem[] = [
   { name: "Message Alert", id: "message-alert" },
   { name: "Rating", id: "rating" },
   { name: "Scan QR", id: "scan-qr" },
+  { name: "Segment Control", id: "segment-control" },
 ];
 
 export const extensionItems: ComponentItem[] = [
   { name: "UIColor", id: "ui-color" },
   { name: "UIFont", id: "ui-font" },
   { name: "UIView", id: "ui-view" },
+  { name: "Codable Helpers", id: "codable-helpers" },
   { name: "Basic Navigation", id: "basic-navigation" },
 ];
 

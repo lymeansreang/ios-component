@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Fraunces, Space_Grotesk } from "next/font/google";
+import { motion } from "motion/react";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -61,29 +64,74 @@ const buildSteps = [
   },
 ];
 
+const stagger = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const ease = [0.25, 0.46, 0.45, 0.94] as const;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease },
+  },
+};
+
+const fadeScale = {
+  hidden: { opacity: 0, scale: 0.95 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease },
+  },
+};
+
 export default function Homepage() {
   return (
     <div className={`${copy.variable} ${display.variable} space-y-16`}>
-      <section className="scroll-reveal relative overflow-hidden rounded-[32px] border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/70 p-10 md:p-14">
+      {/* Hero Section */}
+      <motion.section
+        initial="hidden"
+        animate="show"
+        variants={stagger}
+        className="relative overflow-hidden rounded-[32px] border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/70 p-10 md:p-14"
+      >
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[radial-gradient(circle,_rgba(16,185,129,0.35)_0%,_rgba(16,185,129,0)_70%)] blur-3xl" />
         <div className="absolute -bottom-28 -left-20 h-72 w-72 rounded-full bg-[radial-gradient(circle,_rgba(14,165,233,0.3)_0%,_rgba(14,165,233,0)_70%)] blur-3xl" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(15,23,42,0.08)_1px,transparent_0)] [background-size:28px_28px] opacity-20 dark:opacity-10" />
 
         <div className="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
-          <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-neutral-200 dark:border-neutral-800 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
+          <motion.div variants={stagger} className="space-y-6">
+            <motion.span
+              variants={fadeUp}
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 dark:border-neutral-800 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400"
+            >
               iOS-first UI kit
-            </span>
-            <h1
+            </motion.span>
+            <motion.h1
+              variants={fadeUp}
               className="text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-neutral-900 dark:text-white font-semibold"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >
               Interfaces that feel native, without feeling generic.
-            </h1>
-            <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-2xl">
-              A curated set of tactile, iOS-style components built for modern React apps. Preview every detail, then drop them into production with confidence.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
+            </motion.h1>
+            <motion.p
+              variants={fadeUp}
+              className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-2xl"
+            >
+              A curated set of tactile, iOS-style components built for modern
+              React apps. Preview every detail, then drop them into production
+              with confidence.
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap items-center gap-3"
+            >
               <Link
                 href="/components"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-neutral-900 text-white px-6 py-3 text-sm font-semibold tracking-wide hover:bg-neutral-800 transition-colors"
@@ -96,24 +144,33 @@ export default function Homepage() {
               >
                 See live previews
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-6 text-sm text-neutral-600 dark:text-neutral-400">
+            </motion.div>
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap gap-6 text-sm text-neutral-600 dark:text-neutral-400"
+            >
               <div className="space-y-1">
-                <p className="text-2xl font-semibold text-neutral-900 dark:text-white">24+</p>
+                <p className="text-2xl font-semibold text-neutral-900 dark:text-white">
+                  24+
+                </p>
                 <p>Components in active rotation</p>
               </div>
               <div className="space-y-1">
-                <p className="text-2xl font-semibold text-neutral-900 dark:text-white">3</p>
+                <p className="text-2xl font-semibold text-neutral-900 dark:text-white">
+                  3
+                </p>
                 <p>Theme-ready palettes</p>
               </div>
               <div className="space-y-1">
-                <p className="text-2xl font-semibold text-neutral-900 dark:text-white">Tailwind</p>
+                <p className="text-2xl font-semibold text-neutral-900 dark:text-white">
+                  Tailwind
+                </p>
                 <p>Designed for rapid iteration</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="relative">
+          <motion.div variants={fadeScale} className="relative">
             <div className="absolute -top-6 -left-6 h-40 w-40 rounded-3xl bg-gradient-to-br from-neutral-900 to-neutral-700 opacity-90 shadow-xl" />
             <div className="absolute -bottom-8 right-2 h-44 w-44 rounded-3xl bg-gradient-to-br from-emerald-400/80 to-teal-500/60 shadow-2xl" />
             <div className="relative rounded-[28px] border border-neutral-200/70 dark:border-neutral-800 bg-white/90 dark:bg-neutral-950/80 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.35)]">
@@ -161,25 +218,38 @@ export default function Homepage() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="scroll-reveal grid gap-6 lg:grid-cols-[1fr_1.4fr]">
-        <div className="space-y-4">
-          <h2
+      {/* Designed for feel and flow */}
+      <motion.section
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+        className="grid gap-6 lg:grid-cols-[1fr_1.4fr]"
+      >
+        <motion.div variants={stagger} className="space-y-4">
+          <motion.h2
+            variants={fadeUp}
             className="text-3xl md:text-4xl font-semibold text-neutral-900 dark:text-white"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
             Designed for feel and flow.
-          </h2>
-          <p className="text-base text-neutral-600 dark:text-neutral-300">
-            Each component is tuned for touch-first products, balancing clarity, motion, and depth so your UI feels at home on iOS.
-          </p>
-          <div className="grid gap-3">
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            className="text-base text-neutral-600 dark:text-neutral-300"
+          >
+            Each component is tuned for touch-first products, balancing clarity,
+            motion, and depth so your UI feels at home on iOS.
+          </motion.p>
+          <motion.div variants={stagger} className="grid gap-3">
             {buildSteps.map((step) => (
-              <div
+              <motion.div
                 key={step.title}
+                variants={fadeUp}
                 className="rounded-2xl border border-neutral-200/70 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/70 p-4"
               >
                 <p className="text-sm font-semibold text-neutral-900 dark:text-white">
@@ -188,15 +258,17 @@ export default function Homepage() {
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
                   {step.body}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <motion.div variants={stagger} className="grid gap-4 sm:grid-cols-2">
           {componentHighlights.map((item) => (
-            <div
+            <motion.div
               key={item.name}
+              variants={fadeUp}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
               className="group relative overflow-hidden rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 p-5 shadow-[0_20px_60px_-45px_rgba(15,23,42,0.5)]"
             >
               <div
@@ -216,22 +288,40 @@ export default function Homepage() {
                   <div className="h-2 w-3/5 rounded-full bg-neutral-900 dark:bg-white" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
-      <section className="scroll-reveal grid gap-6 md:grid-cols-3">
-        <div className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-900 text-white p-6">
+      {/* Toolkit / System / Velocity */}
+      <motion.section
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={stagger}
+        className="grid gap-6 md:grid-cols-3"
+      >
+        <motion.div
+          variants={fadeUp}
+          whileHover={{ y: -4, transition: { duration: 0.2 } }}
+          className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-900 text-white p-6"
+        >
           <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
             Toolkit
           </p>
-          <p className="text-2xl font-semibold mt-3">Production-ready defaults</p>
-          <p className="text-sm text-neutral-300 mt-4">
-            Accessible contrast, comfortable spacing, and kinetic motion baked in.
+          <p className="text-2xl font-semibold mt-3">
+            Production-ready defaults
           </p>
-        </div>
-        <div className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 p-6">
+          <p className="text-sm text-neutral-300 mt-4">
+            Accessible contrast, comfortable spacing, and kinetic motion baked
+            in.
+          </p>
+        </motion.div>
+        <motion.div
+          variants={fadeUp}
+          whileHover={{ y: -4, transition: { duration: 0.2 } }}
+          className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 p-6"
+        >
           <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">
             System
           </p>
@@ -241,8 +331,12 @@ export default function Homepage() {
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
             Built to match the proportions and rhythm your users already expect.
           </p>
-        </div>
-        <div className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 p-6">
+        </motion.div>
+        <motion.div
+          variants={fadeUp}
+          whileHover={{ y: -4, transition: { duration: 0.2 } }}
+          className="rounded-3xl border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 p-6"
+        >
           <p className="text-xs uppercase tracking-[0.3em] text-neutral-500">
             Velocity
           </p>
@@ -252,8 +346,8 @@ export default function Homepage() {
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-4">
             Iterate fast with composable utility classes and clean React APIs.
           </p>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
     </div>
   );
 }
