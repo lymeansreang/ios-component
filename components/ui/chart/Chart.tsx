@@ -751,10 +751,16 @@ class PieChartView: UIView {
     private let legendStack = UIStackView()
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
+    private var selectedIndex: Int? {
+        didSet { updateSelection() }
+    }
+
+    var onSliceTapped: ((Int, PieSlice) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setupGesture()
     }
 
     required init?(coder: NSCoder) { fatalError() }
@@ -878,10 +884,57 @@ class PieChartView: UIView {
             layer.add(scale, forKey: "scaleIn")
         }
     }
+
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        addGestureRecognizer(tap)
+    }
+
+    @objc private func handleTap(_ gesture: UITapGestureRecognizer) {
+        let location = gesture.location(in: self)
+        let center = CGPoint(x: bounds.midX, y: bounds.midY - 20)
+
+        // Check if tap is within pie radius
+        let dx = location.x - center.x
+        let dy = location.y - center.y
+        let distance = sqrt(dx * dx + dy * dy)
+
+        guard distance <= 80 else {
+            selectedIndex = nil
+            return
+        }
+
+        // Calculate angle of tap
+        var angle = atan2(dy, dx) + .pi / 2
+        if angle < 0 { angle += 2 * .pi }
+
+        // Find which slice was tapped
+        let total = data.reduce(0) { $0 + $1.value }
+        var currentAngle: CGFloat = 0
+
+        for (index, slice) in data.enumerated() {
+            let sliceAngle = (slice.value / total) * 2 * .pi
+            if angle >= currentAngle && angle < currentAngle + sliceAngle {
+                selectedIndex = index
+                onSliceTapped?(index, slice)
+                return
+            }
+            currentAngle += sliceAngle
+        }
+    }
+
+    private func updateSelection() {
+        for (index, layer) in sliceLayers.enumerated() {
+            layer.opacity = selectedIndex == index ? 1.0 : 0.7
+        }
+    }
 }
 
 // MARK: - Usage
 // let pieChart = PieChartView(frame: CGRect(x: 0, y: 0, width: 320, height: 400))
+// pieChart.onSliceTapped = { index, slice in
+//     print("Tapped slice: \\(slice.label) at index \\(index)")
+// }
 // view.addSubview(pieChart)
 // override func viewDidAppear(_ animated: Bool) {
 //     super.viewDidAppear(animated)

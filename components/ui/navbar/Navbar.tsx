@@ -158,6 +158,8 @@ class TopNavbarView: UIView {
         didSet { rebuildActions() }
     }
 
+    var onActionTapped: ((Int, String) -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -212,16 +214,39 @@ class TopNavbarView: UIView {
             button.layer.cornerRadius = 8
             button.backgroundColor = index == actions.count - 1 ? .systemBlue : .clear
             button.setTitleColor(index == actions.count - 1 ? .white : .secondaryLabel, for: .normal)
+            button.tag = index
+            button.addTarget(self, action: #selector(actionButtonTapped(_:)), for: .touchUpInside)
             button.translatesAutoresizingMaskIntoConstraints = false
             actionsStack.addArrangedSubview(button)
             actionButtons.append(button)
         }
+    }
+
+    @objc private func actionButtonTapped(_ sender: UIButton) {
+        let index = sender.tag
+        guard index < actions.count else { return }
+        onActionTapped?(index, actions[index])
     }
 }
 
 // MARK: - Usage
 // let navbar = TopNavbarView()
 // navbar.actions = ["Docs", "Pricing", "Get App"]
+// navbar.onActionTapped = { index, title in
+//     print("Tapped: \\(title) at index \\(index)")
+//     // Handle action - e.g., navigate to different screen
+//     switch index {
+//     case 0: // Docs
+//         navigationController?.pushViewController(DocsViewController(), animated: true)
+//     case 1: // Pricing
+//         navigationController?.pushViewController(PricingViewController(), animated: true)
+//     case 2: // Get App
+//         // Open App Store or download page
+//         break
+//     default:
+//         break
+//     }
+// }
 // view.addSubview(navbar)
 // navbar.translatesAutoresizingMaskIntoConstraints = false
 // NSLayoutConstraint.activate([
