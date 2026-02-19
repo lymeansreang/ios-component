@@ -46,6 +46,10 @@ export const extensionItems: ComponentItem[] = [
   { name: "Localize", id: "localize" },
 ];
 
+export const customItems: ComponentItem[] = [
+  { name: "Custom Button", id: "custom-button" },
+];
+
 interface SidebarProps {
   activeId: string | null;
   onSelect: (id: string) => void;
@@ -124,6 +128,14 @@ export default function Sidebar({ activeId, onSelect }: SidebarProps) {
             </h2>
             <div className="space-y-1">
               {extensionItems.map((item) => renderNavItem(item))}
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h2 className="px-3 text-sm font-semibold uppercase tracking-[0.24em] text-neutral-500">
+              Custom
+            </h2>
+            <div className="space-y-1">
+              {customItems.map((item) => renderNavItem(item))}
             </div>
           </div>
         </nav>

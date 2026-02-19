@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import Sidebar, {
   componentItems,
   extensionItems,
+  customItems,
 } from "@/components/ui/Sidebar";
 import Button from "@/components/ui/button/Button";
 import Toggle from "@/components/ui/toggle/Toggle";
@@ -40,6 +41,7 @@ import Toast from "@/components/ui/toast/Toast";
 import SocialModernUIKit from "@/components/ui/social-modern-uikit/SocialModernUIKit";
 import EcommerceUIKit from "@/components/ui/ecommerce-uikit/EcommerceUIKit";
 import VisualDecorationUIKit from "@/components/ui/visual-decoration-uikit/VisualDecorationUIKit";
+import CustomButton from "@/components/ui/custom-button/CustomButton";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -87,6 +89,7 @@ const componentViews: Record<string, ReactNode> = {
   "codable-helpers": <CodableExtension />,
   "basic-navigation": <BasicNavigation />,
   localize: <LocalizeExtension />,
+  "custom-button": <CustomButton />,
 };
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
@@ -120,7 +123,7 @@ const fadeScale = {
 export default function ComponentsPage() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const allItems = useMemo(
-    () => [...componentItems, ...extensionItems],
+    () => [...componentItems, ...extensionItems, ...customItems],
     []
   );
   const activeItem = useMemo(
@@ -302,6 +305,55 @@ export default function ComponentsPage() {
                           </h3>
                           <p className="text-sm text-neutral-500 dark:text-neutral-400">
                             Swift extension helpers and usage notes.
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className="h-2 w-10 rounded-full bg-neutral-900 dark:bg-white" />
+                            <span className="h-2 w-6 rounded-full bg-neutral-200 dark:bg-neutral-700" />
+                          </div>
+                        </div>
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                </motion.section>
+
+                <motion.section variants={fadeUp} className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs uppercase tracking-[0.3em] text-neutral-400">
+                      Custom
+                    </p>
+                    <span className="text-xs text-neutral-500">
+                      Build your own
+                    </span>
+                  </div>
+                  <motion.div
+                    variants={stagger}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.1 }}
+                    className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
+                  >
+                    {customItems.map((item, index) => (
+                      <motion.button
+                        key={item.id}
+                        variants={fadeScale}
+                        whileHover={{
+                          y: -4,
+                          transition: { duration: 0.2 },
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setActiveId(item.id)}
+                        className="group relative overflow-hidden rounded-[26px] border border-neutral-200/80 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/70 p-5 text-left shadow-[0_20px_50px_-42px_rgba(15,23,42,0.5)] transition-colors hover:border-neutral-300 dark:hover:border-neutral-700"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/5 via-transparent to-violet-500/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        <div className="relative space-y-3">
+                          <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">
+                            {String(index + 1).padStart(2, "0")}
+                          </p>
+                          <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
+                            {item.name}
+                          </h3>
+                          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                            Configure and generate custom components.
                           </p>
                           <div className="flex items-center gap-2">
                             <span className="h-2 w-10 rounded-full bg-neutral-900 dark:bg-white" />

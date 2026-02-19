@@ -250,6 +250,7 @@ class SimpleTabBarView: UIView {
         activeColor: .white, 
         inactiveColor: .secondaryLabel, 
         onSelect: nil),
+
         TabItem(
         id: "create", 
         title: "Create", 
@@ -257,6 +258,7 @@ class SimpleTabBarView: UIView {
         activeColor: .white, 
         inactiveColor: .secondaryLabel, 
         onSelect: nil),
+
         TabItem(
         id: "inbox", 
         title: "Inbox", 
@@ -264,6 +266,7 @@ class SimpleTabBarView: UIView {
         activeColor: .white, 
         inactiveColor: .secondaryLabel, 
         onSelect: nil),
+        
         TabItem(
         id: "profile", 
         title: "Profile", 
