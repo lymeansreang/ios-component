@@ -42,6 +42,7 @@ import SocialModernUIKit from "@/components/ui/social-modern-uikit/SocialModernU
 import EcommerceUIKit from "@/components/ui/ecommerce-uikit/EcommerceUIKit";
 import VisualDecorationUIKit from "@/components/ui/visual-decoration-uikit/VisualDecorationUIKit";
 import CustomButton from "@/components/ui/custom-button/CustomButton";
+import Pin from "@/components/ui/pin/Pin";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -90,6 +91,7 @@ const componentViews: Record<string, ReactNode> = {
   "basic-navigation": <BasicNavigation />,
   localize: <LocalizeExtension />,
   "custom-button": <CustomButton />,
+  pin: <Pin />,
 };
 
 const ease = [0.25, 0.46, 0.45, 0.94] as const;

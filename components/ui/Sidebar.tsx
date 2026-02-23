@@ -35,6 +35,7 @@ export const componentItems: ComponentItem[] = [
   { name: "Social Modern", id: "social-modern" },
   { name: "Ecommerce", id: "ecommerce-uikit" },
   { name: "Visual Decoration", id: "visual-decoration-uikit" },
+  { name: "PIN Input", id: "pin" },
 ];
 
 export const extensionItems: ComponentItem[] = [
